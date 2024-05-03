@@ -1,0 +1,25 @@
+services:
+  flux-auth:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      default:
+        aliases:
+          - flux-auth.flux.local
+    ports:
+      - 12301:3000
+    volumes:
+      - ..:/flux-auth:cached
+      - cargo-home:/usr/local/cargo
+      - rustup-home:/usr/local/rustup
+    command: /bin/sh -c "while sleep 1000; do :; done"
+
+volumes:
+  cargo-home:
+  rustup-home:
+
+
+networks:
+  default:
+    name: flux-local
